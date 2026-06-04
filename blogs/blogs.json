@@ -1,0 +1,21 @@
+{
+  "repo": "kyushu",
+  "feeds": [
+    {
+      "source": "https://www.lib.kyushu-u.ac.jp/ja/news",
+      "feed_url": "https://www.lib.kyushu-u.ac.jp/ja/news",
+      "title": "Kyushu University Library News",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://www.kyushu-u.ac.jp/en/",
+      "feed_url": "https://www.kyushu-u.ac.jp/en/",
+      "title": "Kyushu University",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}

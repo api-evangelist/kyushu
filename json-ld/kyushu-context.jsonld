@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "jpcoar": "https://github.com/JPCOAR/schema/blob/master/2.0/",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+    "kyushu": "https://www.kyushu-u.ac.jp/ns#",
+    "@vocab": "https://www.kyushu-u.ac.jp/ns#",
+
+    "University": "schema:CollegeOrUniversity",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "email": "schema:email",
+    "logo": "schema:logo",
+    "address": "schema:address",
+    "department": "schema:department",
+    "Library": "schema:Library",
+
+    "Repository": "schema:DataCatalog",
+    "repositoryName": "schema:name",
+    "dataset": "schema:dataset",
+    "Dataset": "schema:Dataset",
+    "license": { "@id": "schema:license", "@type": "@id" },
+
+    "Record": "schema:CreativeWork",
+    "identifier": "dcterms:identifier",
+    "datestamp": "dcterms:modified",
+    "metadataPrefix": "kyushu:metadataPrefix",
+    "set": "kyushu:set",
+    "setSpec": "oai:setSpec",
+    "setName": "oai:setName",
+
+    "title": "dcterms:title",
+    "creator": "dcterms:creator",
+    "subject": "dcterms:subject",
+    "publisher": "dcterms:publisher",
+    "date": "dcterms:date",
+    "type": "dcterms:type",
+    "language": "dcterms:language",
+    "rights": "dcterms:rights"
+  },
+  "@type": "University",
+  "name": "Kyushu University",
+  "url": "https://www.kyushu-u.ac.jp/en/",
+  "description": "National research university in Fukuoka, Japan, whose library operates the Kyushu University Institutional Repository (QIR) and exposes scholarly metadata over a live OAI-PMH 2.0 interface using the JPCOAR schema.",
+  "department": {
+    "@type": "Library",
+    "name": "Kyushu University Library",
+    "url": "https://www.lib.kyushu-u.ac.jp/ja/metadata",
+    "email": "qir@jimu.kyushu-u.ac.jp"
+  },
+  "dataset": [
+    {
+      "@type": "Repository",
+      "repositoryName": "Kyushu University Institutional Repository (QIR)",
+      "url": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/",
+      "description": "OAI-PMH 2.0 metadata harvesting interface. Supported metadataPrefix values: jpcoar, jpcoar_2.0, junii2, oai_dc.",
+      "license": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "@type": "Dataset",
+      "name": "QIR / Kyushu University Collections Bulk Metadata (TSV via Handle)",
+      "url": "https://hdl.handle.net/2324/6625737",
+      "description": "Quarterly full-metadata TSV exports for library digital collections (repository, rare materials, seal images, coal images).",
+      "license": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ]
+}
