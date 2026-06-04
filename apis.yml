@@ -1,0 +1,86 @@
+---
+aid: kyushu
+name: Kyushu University
+description: >-
+  Kyushu University (九州大学) is a national research university in Fukuoka, Japan,
+  ranked #167 in the QS World University Rankings 2025. Its public, programmatic
+  footprint is concentrated in the university library, which operates the Kyushu
+  University Institutional Repository (QIR) and exposes scholarly metadata over a
+  live OAI-PMH 2.0 interface using the JPCOAR schema, alongside quarterly bulk TSV
+  downloads via the Handle system. Other institutional surfaces — the Elsevier Pure
+  research portal and the Academic Staff researcher database — are public for
+  browsing but do not document an open API. There is no central institution-wide
+  developer portal; this profile catalogs only the endpoints that could be verified
+  live.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/kyushu/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Library
+  - Institutional Repository
+  - OAI-PMH
+  - Open Access
+  - Japan
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: kyushu:qir-oai-pmh
+    name: Kyushu University Institutional Repository (QIR) OAI-PMH
+    description: >-
+      Live OAI-PMH 2.0 metadata harvesting interface for the Kyushu University
+      Institutional Repository (QIR), run by the Kyushu University Library. Returns
+      scholarly metadata in the JPCOAR schema (metadataPrefix=jpcoar). Supports
+      Identify, GetRecord and ListRecords (max 500 records per request, with
+      resumptionToken pagination) and from/until date filtering. Verified live:
+      the Identify verb returns repositoryName "Kyushu University Institutional
+      Repository (QIR)", protocolVersion 2.0, granularity to seconds, and
+      adminEmail qir@jimu.kyushu-u.ac.jp.
+    humanURL: https://www.lib.kyushu-u.ac.jp/ja/metadata
+    baseURL: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+    tags: [ OAI-PMH, Institutional Repository, Metadata, JPCOAR, Open Access, Library, Research ]
+    properties:
+      - type: Documentation
+        url: https://www.lib.kyushu-u.ac.jp/ja/metadata
+      - type: OpenAPI
+        url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify
+  - aid: kyushu:qir-bulk-tsv
+    name: QIR / Kyushu University Collections Bulk Metadata (TSV via Handle)
+    description: >-
+      Quarterly full-metadata TSV exports for Kyushu University Library digital
+      collections, distributed through the Handle system. Covers the institutional
+      repository (QIR) as well as rare materials, seal images and coal images
+      collections. Provided as bulk downloads rather than a query API.
+    humanURL: https://www.lib.kyushu-u.ac.jp/ja/metadata
+    tags: [ Bulk Download, Metadata, TSV, Handle, Library, Open Data ]
+    properties:
+      - type: Documentation
+        url: https://www.lib.kyushu-u.ac.jp/ja/metadata
+      - type: Download
+        url: https://hdl.handle.net/2324/6625737
+common:
+  - type: Website
+    url: https://www.kyushu-u.ac.jp/en/
+  - type: DeveloperPortal
+    url: https://www.lib.kyushu-u.ac.jp/ja/metadata
+  - type: GitHub
+    url: https://github.com/RIIT-KyushuUniv
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/kyushu-university/
+  - type: Plans
+    url: plans/kyushu-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/kyushu-rate-limits.yml
+  - type: FinOps
+    url: finops/kyushu-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
