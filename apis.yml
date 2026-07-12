@@ -65,6 +65,8 @@ apis:
       - type: Download
         url: https://hdl.handle.net/2324/6625737
 common:
+  - type: DomainSecurity
+    url: security/kyushu-domain-security.yml
   - type: Website
     url: https://www.kyushu-u.ac.jp/en/
   - type: DeveloperPortal
