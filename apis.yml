@@ -1,103 +1,302 @@
 ---
 aid: kyushu
 name: Kyushu University
+x-type: university
+x-category: Public Research University
 description: >-
-  Kyushu University (九州大学) is a national research university in Fukuoka, Japan,
-  ranked #167 in the QS World University Rankings 2025. Its public, programmatic
-  footprint is concentrated in the university library, which operates the Kyushu
-  University Institutional Repository (QIR) and exposes scholarly metadata over a
-  live OAI-PMH 2.0 interface using the JPCOAR schema, alongside quarterly bulk TSV
-  downloads via the Handle system. Other institutional surfaces — the Elsevier Pure
-  research portal and the Academic Staff researcher database — are public for
-  browsing but do not document an open API. There is no central institution-wide
-  developer portal; this profile catalogs only the endpoints that could be verified
-  live.
+  Kyushu University (九州大学) is a Japanese national research university in Fukuoka, one of the seven
+  former Imperial Universities and a Designated National University, ranked #171 in the QS World
+  University Rankings 2027. Its programmable footprint is small and concentrated in scholarly
+  infrastructure rather than in a developer platform, and this profile says so rather than padding
+  it. Exactly one unambiguously institution-operated API was found and exercised end to end: the
+  OAI-PMH 2.0 metadata interface for the Kyushu University Institutional Repository and the
+  library's digital collections, at catalog.lib.kyushu-u.ac.jp. That endpoint is unusual for this
+  cohort — most Japanese university repositories are tenants on NII's JAIRO Cloud, while Kyushu
+  runs the protocol implementation itself on its own registrable domain, with a kyushu-u.ac.jp
+  administrative contact, four metadata formats and seven collection sets. Everything else is a
+  relationship rather than a contract: the university operates its own SAML 2.0 Shibboleth Identity
+  Provider registered in the GakuNin national federation since 2011 and exported to eduGAIN; it is
+  a DataCite consortium organization under the Japan Link Center and a Crossref member through two
+  units; its research portal is an Elsevier Pure tenant whose live OpenAPI is Elsevier's contract,
+  not Kyushu's, and is deliberately not saved here. There is no central developer portal, no API
+  key issuance, no open-data platform, no llms.txt, no MCP server and no OpenAPI published anywhere
+  on kyushu-u.ac.jp. The public syllabus and the Genkai supercomputer portals are HTML and login
+  walls, not APIs.
 type: Index
 deliveryModel:
   model: saas
   open_source: false
-  commercial: true
-  callable_host: false
+  commercial: false
+  callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: medium
+  confidence: high
   source:
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - probed
+  generated: '2026-09-01'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: none
   trial: false
-  try_now: false
-  public: false
-  label: Free
-  confidence: medium
+  try_now: true
+  public: true
+  label: Free · anonymous, no registration
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+  - probed
+  generated: '2026-09-01'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kyushu.png
 url: https://raw.githubusercontent.com/api-evangelist/kyushu/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
+  - Higher Education
+  - Education
   - Research
-  - Library
-  - Institutional Repository
-  - OAI-PMH
-  - Open Access
   - Japan
+  - National University
+  - Public Research University
+  - Institutional Repository
+  - Research Data
+  - Identity Federation
+  - Library
+  - Course Catalog
+  - Open Access
+  - OAI-PMH
+  - Metadata
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
 apis:
   - aid: kyushu:qir-oai-pmh
     name: Kyushu University Institutional Repository (QIR) OAI-PMH
+    x-operator: institution
     description: >-
-      Live OAI-PMH 2.0 metadata harvesting interface for the Kyushu University
-      Institutional Repository (QIR), run by the Kyushu University Library. Returns
-      scholarly metadata in the JPCOAR schema (metadataPrefix=jpcoar). Supports
-      Identify, GetRecord and ListRecords (max 500 records per request, with
-      resumptionToken pagination) and from/until date filtering. Verified live:
-      the Identify verb returns repositoryName "Kyushu University Institutional
-      Repository (QIR)", protocolVersion 2.0, granularity to seconds, and
-      adminEmail qir@jimu.kyushu-u.ac.jp.
-    humanURL: https://www.lib.kyushu-u.ac.jp/ja/metadata
+      Live OAI-PMH 2.0 metadata harvesting interface for the Kyushu University Institutional
+      Repository (QIR) and the library's other digital collections, run by Kyushu University
+      Library on the university's own registrable domain. The protocol implementation as well as
+      the collection is the institution's — there is no vendor host in the path — which is why this
+      is the rare university repository surface graded x-operator: institution rather than tenant.
+      Verified live 2026-09-01 across all six verbs. Identify returns repositoryName "Kyushu
+      University Institutional Repository (QIR)", protocolVersion 2.0, adminEmail
+      qir@jimu.kyushu-u.ac.jp, earliestDatestamp 2006-08-16, deletedRecord transient, granularity
+      to the second. ListMetadataFormats returns jpcoar, jpcoar_2.0, junii2 and oai_dc, though the
+      library documents only JPCOAR as fully supported. ListSets returns seven sets — coal,
+      dissertation, hydro, papers, rare, seals, qir — two of which (hydro, qir) appear on the wire
+      but not in the documentation, while `papers` is advertised by ListSets and documented as NOT
+      served. Anonymous, no key, no rate-limit headers; a list response caps at 500 records and
+      pages with resumptionToken. Metadata is CC0 1.0 except QIR abstracts, which carry no licence
+      grant. Protocol errors return HTTP 200 with a self-closing error element, so HTTP status is
+      not a success signal here.
+    humanURL: https://www.lib.kyushu-u.ac.jp/en/metadata
     baseURL: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
     tags: [ OAI-PMH, Institutional Repository, Metadata, JPCOAR, Open Access, Library, Research ]
     properties:
+      - type: OpenAPI
+        url: openapi/kyushu-qir-oai-pmh-openapi.yml
       - type: Documentation
         url: https://www.lib.kyushu-u.ac.jp/ja/metadata
-      - type: OpenAPI
-        url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify
+      - type: Examples
+        url: examples/kyushu-qir-oai-pmh-identify-example.json
+      - type: Examples
+        url: examples/kyushu-qir-oai-pmh-listmetadataformats-example.json
+      - type: Examples
+        url: examples/kyushu-qir-oai-pmh-listsets-example.json
+      - type: Examples
+        url: examples/kyushu-qir-oai-pmh-getrecord-example.json
+      - type: Errors
+        url: errors/kyushu-qir-oai-pmh-errors.yml
+      - type: Authentication
+        url: authentication/kyushu-authentication.yml
+      - type: Vocabulary
+        url: vocabulary/kyushu-qir-vocabulary.yml
+      - type: Conformance
+        url: conformance/kyushu-conformance.yml
   - aid: kyushu:qir-bulk-tsv
     name: QIR / Kyushu University Collections Bulk Metadata (TSV via Handle)
+    x-operator: institution
     description: >-
-      Quarterly full-metadata TSV exports for Kyushu University Library digital
-      collections, distributed through the Handle system. Covers the institutional
-      repository (QIR) as well as rare materials, seal images and coal images
-      collections. Provided as bulk downloads rather than a query API.
-    humanURL: https://www.lib.kyushu-u.ac.jp/ja/metadata
+      Quarterly full-metadata TSV exports for the Kyushu University Library digital collections,
+      distributed through the Handle system under the university's own 2324 prefix. Covers the
+      institutional repository (QIR) as well as the rare materials, ownership seal image and coal
+      mining image collections. This is how the `papers` set is obtained, since the library states
+      it is not served over OAI-PMH. Bulk download rather than a query API; anonymous, no account,
+      CC0 1.0 with QIR abstracts excluded from the licence grant. Handle 2324/6625737 verified live
+      2026-09-01.
+    humanURL: https://www.lib.kyushu-u.ac.jp/en/metadata
+    baseURL: https://hdl.handle.net/2324/6625737
     tags: [ Bulk Download, Metadata, TSV, Handle, Library, Open Data ]
     properties:
       - type: Documentation
         url: https://www.lib.kyushu-u.ac.jp/ja/metadata
       - type: Download
         url: https://hdl.handle.net/2324/6625737
+      - type: Authentication
+        url: authentication/kyushu-authentication.yml
+  - aid: kyushu:gakunin-shibboleth-idp
+    name: GakuNin Shibboleth Identity Provider
+    x-operator: federation
+    description: >-
+      Kyushu University's own SAML 2.0 Identity Provider, registered in GakuNin — the Japanese
+      academic access-management federation operated by NII — and exported to eduGAIN. entityID
+      https://idp.kyushu-u.ac.jp/idp/shibboleth, OrganizationName "Kyushu University / 九州大学",
+      shibmd:Scope kyushu-u.ac.jp, registered 2011-02-18 under registrationAuthority
+      https://www.gakunin.jp. Declares SingleSignOnService over HTTP-POST, HTTP-Redirect and the
+      legacy Shibboleth 1.0 AuthnRequest profile, and SingleLogoutService over HTTP-POST and
+      HTTP-Redirect with async-SLO support. Two further Kyushu entities are registered as its own
+      service providers — the ShareAid shared research-equipment reservation portal and a REDCap
+      instance in the medical faculty. A federation is shared by definition, but the IdP behind it
+      is the institution's, and this is the strongest machine-readable surface Kyushu operates
+      after the OAI-PMH endpoint. One real defect found: the IdP's own metadata URL returns HTTP
+      200 carrying a 115-byte Shibboleth filesystem error rather than an EntityDescriptor, so the
+      GakuNin aggregate is the only working source for this entity.
+    humanURL: https://www.gakunin.jp/en/
+    baseURL: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+    tags: [ SAML, Shibboleth, Identity Federation, GakuNin, eduGAIN, Single Sign-On ]
+    properties:
+      - type: Authentication
+        url: authentication/kyushu-authentication.yml
+      - type: Conformance
+        url: conformance/kyushu-conformance.yml
+  - aid: kyushu:datacite-membership
+    name: DataCite DOI Registration Membership
+    x-operator: registry
+    description: >-
+      Kyushu University is a DataCite consortium organization — provider id `kyushuu`, symbol
+      KYUSHUU, region APAC, country JP, active since 2023-02-28 — inside the Japan Link Center
+      (`jalcco`) consortium, with DOI prefix 10.48708 and one registered repository,
+      `kyushuu.kyushuu` ("Repository for Kyushu University"). Verified against api.datacite.org on
+      2026-09-01. This is a membership fact about the institution, not a contract it publishes;
+      DataCite's own API is DataCite's and is not saved here. The DataCite kernel-4 namespace also
+      appears inside every JPCOAR record the university's OAI-PMH endpoint returns, so the standard
+      is present in the payload as well as in the registry.
+    humanURL: https://commons.datacite.org/providers/kyushuu
+    baseURL: https://api.datacite.org/providers/kyushuu
+    tags: [ DataCite, DOI, Registry, Persistent Identifiers, JaLC, Research Data ]
+    properties:
+      - type: Conformance
+        url: conformance/kyushu-conformance.yml
+  - aid: kyushu:crossref-membership
+    name: Crossref DOI Registration Membership
+    x-operator: registry
+    description: >-
+      Two Kyushu University units are Crossref members registering DOIs under their own prefixes,
+      verified against api.crossref.org on 2026-09-01 — member 3044 "Kyushu University" (prefix
+      10.5109, 6,284 DOIs) and member 1036 "Faculty of Mathematics, Kyushu University" (prefix
+      10.2206, 1,527 DOIs). A membership, not a contract the institution publishes; Crossref's API
+      is Crossref's and is not saved here.
+    humanURL: https://www.crossref.org/members/prep/3044
+    baseURL: https://api.crossref.org/members/3044
+    tags: [ Crossref, DOI, Registry, Scholarly Publishing, Persistent Identifiers ]
+    properties:
+      - type: Conformance
+        url: conformance/kyushu-conformance.yml
+  - aid: kyushu:ror-registration
+    name: ROR Organization Record
+    x-operator: registry
+    description: >-
+      Kyushu University's Research Organization Registry record, ROR ID 00p4k0j84, carrying the
+      English, romanized (Kyūshū Daigaku) and Japanese (九州大学) names. The identifier that makes the
+      DataCite provider record, the Crossref member records, the repository metadata and the
+      federation entity joinable to one another. Verified 2026-09-01.
+    humanURL: https://ror.org/00p4k0j84
+    baseURL: https://api.ror.org/organizations/00p4k0j84
+    tags: [ ROR, Registry, Persistent Identifiers, Research Organizations ]
+    properties:
+      - type: Conformance
+        url: conformance/kyushu-conformance.yml
+  - aid: kyushu:pure-research-portal
+    name: Kyushu University Pure Research Portal (Elsevier tenant)
+    x-operator: tenant
+    description: >-
+      Kyushu University's research information portal, an Elsevier Pure tenant at
+      kyushu-u.elsevierpure.com. The researchers, publications, organizational units and research
+      outputs behind it are the university's; the software and the contract are Elsevier's. The
+      tenant serves a live OpenAPI at /ws/api/openapi.json — 360 KB, 827 paths, info.title "Pure
+      API", info.version 5.36.2-1, info.contact.email pure-support@elsevier.com, and a relative
+      servers block of `/ws/api` that leaves it with no hostname of its own. That relative server
+      block is exactly the `hostless` failure class this pipeline exists to catch: a host-based
+      ownership check is blind to it, and it is how Elsevier Pure contracts have been credited to
+      universities elsewhere in this cohort. The relationship is recorded here; the contract is
+      deliberately NOT saved into this repository and belongs to Elsevier's own profile. Note also
+      that /en/ on the tenant returns HTTP 403 to an automated client while / returns 200.
+    humanURL: https://kyushu-u.elsevierpure.com/
+    baseURL: https://kyushu-u.elsevierpure.com/ws/api
+    tags: [ Research Portal, Elsevier Pure, CRIS, Tenant, Research Information ]
+    properties:
+      - type: Authentication
+        url: authentication/kyushu-authentication.yml
+      - type: VendorProfile
+        url: https://kyushu-u.elsevierpure.com/
+  - aid: kyushu:genkai-research-computing
+    name: Genkai Supercomputer System (Research Institute for Information Technology)
+    x-operator: institution
+    description: >-
+      Kyushu University's research computing service, operated by the Research Institute for
+      Information Technology (RIIT) around the Genkai supercomputer. Three machine-facing portals
+      run on the university's own hpc.kyushu-u.ac.jp domain and all answered HTTP 200 on
+      2026-09-01 — a user application portal, a reservation portal and an Open OnDemand instance —
+      but every one of them is a login wall, with access granted through an application and fee
+      process rather than by issuing API credentials. No public API, no token format and no scope
+      list is published. Recorded as an institution-operated surface with an honest note that it is
+      auth_required, not as a callable API. RIIT also maintains the associated open-source work in
+      public: the WHEEL HPC workflow system and CBrick, in the RIIT-KyushuUniv GitHub organization.
+    humanURL: https://www.cc.kyushu-u.ac.jp/scp/
+    baseURL: https://genkai-portal.hpc.kyushu-u.ac.jp/user-portal/
+    tags: [ Research Computing, HPC, Supercomputing, Open OnDemand, Allocation ]
+    properties:
+      - type: Authentication
+        url: authentication/kyushu-authentication.yml
+      - type: SourceCode
+        url: https://github.com/RIIT-KyushuUniv
 common:
-  - type: DomainSecurity
-    url: security/kyushu-domain-security.yml
   - type: Website
     url: https://www.kyushu-u.ac.jp/en/
-  - type: DeveloperPortal
-    url: https://www.lib.kyushu-u.ac.jp/ja/metadata
-  - type: GitHub
+  - type: Documentation
+    url: https://www.lib.kyushu-u.ac.jp/en/metadata
+  - type: GitHubOrganization
     url: https://github.com/RIIT-KyushuUniv
   - type: LinkedIn
     url: https://www.linkedin.com/school/kyushu-university/
+  - type: PrivacyPolicy
+    url: https://www.kyushu-u.ac.jp/en/website/privacypolicy
+  - type: TermsOfService
+    url: https://www.kyushu-u.ac.jp/en/website/sitepolicy
+  - type: Support
+    url: https://www.kyushu-u.ac.jp/en/contact/
+  - type: Blog
+    url: https://www.kyushu-u.ac.jp/en/news/
+  - type: ResearchRepository
+    url: https://catalog.lib.kyushu-u.ac.jp/
+  - type: LibraryCatalog
+    url: https://catalog.lib.kyushu-u.ac.jp/opac_search/
+  - type: CourseCatalog
+    url: https://syllabus.kyushu-u.ac.jp/
+  - type: IdentityFederation
+    url: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+  - type: ResearchComputing
+    url: https://www.cc.kyushu-u.ac.jp/scp/
+  - type: AIPolicy
+    url: https://mirai.kyushu-u.ac.jp/curriculum/generative-ai/
+  - type: AITooling
+    url: https://guides.lib.kyushu-u.ac.jp/AI-and-academia
+  - type: OpenAPI
+    url: openapi/kyushu-qir-oai-pmh-openapi.yml
+  - type: Conformance
+    url: conformance/kyushu-conformance.yml
+  - type: Authentication
+    url: authentication/kyushu-authentication.yml
+  - type: Errors
+    url: errors/kyushu-qir-oai-pmh-errors.yml
+  - type: Vocabulary
+    url: vocabulary/kyushu-qir-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kyushu-context.jsonld
+  - type: DomainSecurity
+    url: security/kyushu-domain-security.yml
   - type: Plans
     url: plans/kyushu-plans-pricing.yml
   - type: RateLimits
@@ -106,6 +305,79 @@ common:
     url: finops/kyushu-finops.yml
   - type: Review
     url: review.yml
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    The public surface was reached with no wall of consequence, in Japanese as well as English. One
+    genuinely institution-operated API was found and exercised anonymously end to end — the QIR
+    OAI-PMH 2.0 endpoint on the university's own catalog.lib.kyushu-u.ac.jp — across all six verbs,
+    with five distinct protocol error codes reproduced by deliberately malformed requests. Kyushu's
+    Shibboleth IdP was confirmed inside the 5.65 MB GakuNin aggregate metadata and independently in
+    the eduGAIN technical API; the DataCite provider record, two Crossref memberships and the ROR
+    record were confirmed against their registries' APIs. The absences are real, not blocked:
+    kyushu-u.ac.jp serves no llms.txt, no OpenAPI, no MCP server, no agent card and no developer
+    portal, and returns HTTP 403 on /.well-known/ paths rather than 404. The public syllabus at
+    syllabus.kyushu-u.ac.jp and the Fujitsu Campusmate portal behind it are HTML search forms with
+    no JSON interface; the three Genkai supercomputer portals are live login walls. The single
+    vendor contract on the estate — the Elsevier Pure tenant's live 827-path "Pure API" OpenAPI at
+    kyushu-u.elsevierpure.com/ws/api/openapi.json, servers `/ws/api`, contact
+    pure-support@elsevier.com — was identified and deliberately not saved; the tenancy is recorded
+    instead. Two operational defects were measured rather than smoothed: the IdP's own metadata URL
+    returns 200 with a filesystem error string instead of an EntityDescriptor, and the OAI-PMH host
+    intermittently drops connections and succeeds on retry.
+  evidence:
+    - url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify
+      status: 200
+    - url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListMetadataFormats
+      status: 200
+    - url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListSets
+      status: 200
+    - url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=GetRecord&metadataPrefix=jpcoar&identifier=oai:catalog.lib.kyushu-u.ac.jp:2324/411726
+      status: 200
+    - url: https://www.lib.kyushu-u.ac.jp/ja/metadata
+      status: 200
+    - url: https://hdl.handle.net/2324/6625737
+      status: 200
+    - url: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+      status: 200
+    - url: https://technical.edugain.org/api.php?action=show_entity&entityid=https%3A%2F%2Fidp.kyushu-u.ac.jp%2Fidp%2Fshibboleth
+      status: 200
+    - url: https://api.datacite.org/providers/kyushuu
+      status: 200
+    - url: https://commons.datacite.org/providers/kyushuu
+      status: 429
+    - url: https://api.crossref.org/members/3044
+      status: 200
+    - url: https://api.ror.org/organizations/00p4k0j84
+      status: 200
+    - url: https://syllabus.kyushu-u.ac.jp/
+      status: 200
+    - url: https://catalog.lib.kyushu-u.ac.jp/opac_search/
+      status: 200
+    - url: https://www.cc.kyushu-u.ac.jp/scp/
+      status: 200
+    - url: https://genkai-portal.hpc.kyushu-u.ac.jp/user-portal/
+      status: 200
+    - url: https://mirai.kyushu-u.ac.jp/curriculum/generative-ai/
+      status: 200
+    - url: https://guides.lib.kyushu-u.ac.jp/AI-and-academia
+      status: 200
+    - url: https://kyushu-u.elsevierpure.com/ws/api/openapi.json
+      status: 200
+    - url: https://idp.kyushu-u.ac.jp/idp/shibboleth
+      status: 200
+    - url: https://www.kyushu-u.ac.jp/llms.txt
+      status: 404
+    - url: https://www.kyushu-u.ac.jp/.well-known/security.txt
+      status: 403
+    - url: https://data.kyushu-u.ac.jp/
+      status: 0
+    - url: https://api.kyushu-u.ac.jp/
+      status: 0
+    - url: http://qir.kyushu-u.ac.jp/dspace-oai/request
+      status: 0
+  checked: '2026-09-01'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
