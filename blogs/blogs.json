@@ -2,26 +2,29 @@
   "repo": "kyushu",
   "feeds": [
     {
-      "source": "https://www.lib.kyushu-u.ac.jp/ja/news",
-      "feed_url": "https://www.lib.kyushu-u.ac.jp/ja/news",
-      "title": "Kyushu University Library News",
+      "source": "https://www.kyushu-u.ac.jp/en/contact/",
+      "feed_url": "https://www.kyushu-u.ac.jp/en/contact/",
+      "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
+    },
+    {
+      "source": "https://www.lib.kyushu-u.ac.jp/ja/news",
+      "feed_url": "https://www.lib.kyushu-u.ac.jp/ja/news/feed",
+      "title": "",
+      "saved": 6,
+      "method": "discovered"
     },
     {
       "source": "https://www.kyushu-u.ac.jp/en/",
       "feed_url": "https://www.kyushu-u.ac.jp/en/",
-      "title": "Kyushu University",
+      "title": "",
       "saved": 0,
-      "method": "html-scrape",
-      "error": "parse_failed",
-      "nature": "undetermined",
-      "nature_basis": null
+      "method": "none"
     }
   ],
-  "post_count": 18,
-  "fetched": "2026-08-30T22:05:13Z",
+  "post_count": 24,
+  "fetched": "2026-09-06T19:17:18Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
