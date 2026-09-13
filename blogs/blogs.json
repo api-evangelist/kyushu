@@ -9,11 +9,11 @@
       "method": "none"
     },
     {
-      "source": "https://www.lib.kyushu-u.ac.jp/ja/news",
+      "source": "https://www.lib.kyushu-u.ac.jp/ja/news/feed",
       "feed_url": "https://www.lib.kyushu-u.ac.jp/ja/news/feed",
       "title": "",
-      "saved": 6,
-      "method": "discovered"
+      "saved": 0,
+      "method": "feed"
     },
     {
       "source": "https://www.kyushu-u.ac.jp/en/",
@@ -23,8 +23,8 @@
       "method": "none"
     }
   ],
-  "post_count": 24,
-  "fetched": "2026-09-06T19:17:18Z",
+  "post_count": 29,
+  "fetched": "2026-09-13T13:00:00Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
