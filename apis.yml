@@ -114,6 +114,13 @@ apis:
   - Identity Federation
   - GakuNin
   - eduGAIN
+  - SSO
+  tags_raw:
+  - SAML
+  - Shibboleth
+  - Identity Federation
+  - GakuNin
+  - eduGAIN
   - Single Sign-On
   properties:
   - type: Authentication
@@ -196,6 +203,12 @@ apis:
   tags:
   - Research Portal
   - Elsevier Pure
+  - CRI
+  - Tenants
+  - Research Information
+  tags_raw:
+  - Research Portal
+  - Elsevier Pure
   - CRIS
   - Tenant
   - Research Information
@@ -219,6 +232,12 @@ apis:
   humanURL: https://www.cc.kyushu-u.ac.jp/scp/
   baseURL: https://genkai-portal.hpc.kyushu-u.ac.jp/user-portal/
   tags:
+  - Research Computing
+  - HPC
+  - Supercomputing
+  - Open OnDemand
+  - Allocations
+  tags_raw:
   - Research Computing
   - HPC
   - Supercomputing
