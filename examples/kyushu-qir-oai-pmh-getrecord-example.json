@@ -1,0 +1,37 @@
+{
+  "generated": "2026-09-01",
+  "method": "probed",
+  "source": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=GetRecord&metadataPrefix=jpcoar&identifier=oai:catalog.lib.kyushu-u.ac.jp:2324/411726",
+  "x-operator": "institution",
+  "note": "A single record from the `rare` set, fetched live. Shown because the payload is where the domain-standard evidence lives: the JPCOAR envelope imports the DataCite kernel-4 namespace and the OpenAIRE namespace, and identifiers are Handles under the university's own 2324 prefix.",
+  "request": {
+    "method": "GET",
+    "url": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=GetRecord&metadataPrefix=jpcoar&identifier=oai:catalog.lib.kyushu-u.ac.jp:2324/411726"
+  },
+  "response": {
+    "status": 200,
+    "content_type": "text/xml",
+    "header": {
+      "identifier": "oai:catalog.lib.kyushu-u.ac.jp:2324/411726",
+      "datestamp": "2025-08-01T07:19:21Z",
+      "setSpec": "rare"
+    },
+    "metadata": {
+      "schema": "jpcoar 1.0",
+      "namespaces_declared": [
+        "https://github.com/JPCOAR/schema/blob/master/1.0/",
+        "http://purl.org/dc/elements/1.1/",
+        "http://purl.org/dc/terms/",
+        "https://schema.datacite.org/meta/kernel-4/",
+        "http://namespace.openaire.eu/schema/oaire/",
+        "http://www.rioxx.net/schema/v2.0/rioxxterms/",
+        "http://ndl.go.jp/dcndl/terms/"
+      ],
+      "dc:title": ["蒙古襲来絵詞 (模本)", "Moko shurai ekotoba mohon"],
+      "dc:type": "book",
+      "dc:language": "jpn",
+      "dc:rights": "Public Domain",
+      "jpcoar:identifier": { "identifierType": "HDL", "value": "http://hdl.handle.net/2324/411726" }
+    }
+  }
+}

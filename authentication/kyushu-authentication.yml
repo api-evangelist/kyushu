@@ -1,0 +1,91 @@
+generated: '2026-09-01'
+method: derived
+x-derived-from: live probe of the endpoints listed in source[], run 2026-09-01
+x-source-url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+source:
+- https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+- https://hdl.handle.net/2324/6625737
+- https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+- https://genkai-portal.hpc.kyushu-u.ac.jp/user-portal/
+- https://kyushu-u.elsevierpure.com/ws/api
+note: >-
+  Kyushu University issues no API credentials to the public. There is no developer portal, no key
+  request form, no OAuth client registration and no machine-readable terms of use for any surface
+  found in this run. The one place the university runs real credential infrastructure is SAML — its
+  own GakuNin Shibboleth Identity Provider — and that authenticates people into federated services,
+  not callers into an API. Everything below was exercised anonymously on 2026-09-01.
+schemes:
+- name: none
+  type: none
+  surface: QIR OAI-PMH (x-operator institution)
+  endpoint: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+  description: >-
+    Fully anonymous. Identify, ListMetadataFormats, ListSets, ListIdentifiers, ListRecords and
+    GetRecord were all answered with no Authorization header, cookie or API key, and no
+    registration of any kind. There are no rate-limit headers on the response; the only documented
+    ceiling is 500 records per list response, paged with resumptionToken.
+  evidence: 'GET ?verb=Identify -> HTTP 200, valid OAI-PMH XML, no auth challenge.'
+- name: none
+  type: none
+  surface: QIR bulk metadata TSV via Handle (x-operator institution)
+  endpoint: https://hdl.handle.net/2324/6625737
+  description: >-
+    Quarterly full-metadata TSV exports, published through the Handle system under the university's
+    own 2324 prefix. Anonymous download, no account, no terms acceptance gate. Metadata is CC0 1.0
+    with one carve-out: QIR abstracts carry no licence grant.
+  evidence: 'GET https://hdl.handle.net/2324/6625737 -> HTTP 200 landing page for the download.'
+- name: saml
+  type: saml2
+  surface: GakuNin Shibboleth Identity Provider (x-operator federation)
+  endpoint: https://idp.kyushu-u.ac.jp/idp/profile/SAML2/Redirect/SSO
+  description: >-
+    Kyushu University's own SAML 2.0 IdP, entityID https://idp.kyushu-u.ac.jp/idp/shibboleth,
+    scope kyushu-u.ac.jp, registered in GakuNin since 2011-02-18 and exported to eduGAIN. Declares
+    SingleSignOnService over HTTP-POST, HTTP-Redirect and the Shibboleth 1.0 AuthnRequest profile,
+    and SingleLogoutService over HTTP-POST and HTTP-Redirect with asynchronous SLO support. This
+    authenticates humans into federated services; it is not a machine credential for an API.
+  evidence: >-
+    Confirmed inside the 5,653,150-byte GakuNin aggregate metadata (HTTP 200) and independently in
+    the eduGAIN technical API, which reports registrationAuthority https://www.gakunin.jp and
+    registrationInstant 2011-02-18T07:27:49Z. The IdP's own metadata URL
+    https://idp.kyushu-u.ac.jp/idp/shibboleth returns HTTP 200 but a 115-byte Shibboleth error
+    string ("/opt/shibboleth-idp/metadata/idp-metadata.xml そのようなファイルやディレクトリはありません"),
+    so the federation aggregate is the only usable source for this entity — a real, small
+    misconfiguration on the institution's side, recorded rather than glossed.
+  x-anti-pattern: >-
+    A live 200 that carries a filesystem error string is a soft failure. Anything that grades this
+    endpoint on status code alone will credit metadata that is not being served.
+- name: none
+  type: none
+  surface: Institution-operated SAML service providers (x-operator federation)
+  endpoint: https://reservation.shareaid.kyushu-u.ac.jp/shibboleth-sp
+  description: >-
+    Two further GakuNin entities are Kyushu University's own service providers rather than its IdP:
+    ShareAid, the shared-use research equipment and facility reservation portal
+    (reservation.shareaid.kyushu-u.ac.jp, HTTP 200 live), and a REDCap research-data-capture
+    instance at zk1.med.kyushu-u.ac.jp. Both declare AssertionConsumerService endpoints over
+    HTTP-POST, POST-SimpleSign, HTTP-Artifact and the SAML 1.0 profiles. They consume the
+    federation; they do not expose a public API.
+  evidence: 'Both EntityDescriptors present in the GakuNin aggregate metadata, OrganizationName "Kyushu University / 九州大学".'
+- name: unknown
+  type: unknown
+  surface: Genkai supercomputer portals (x-operator institution)
+  endpoint: https://genkai-portal.hpc.kyushu-u.ac.jp/user-portal/
+  description: >-
+    The Genkai research computing system exposes a user-application portal, a reservation portal
+    and an Open OnDemand instance, all on hpc.kyushu-u.ac.jp. All three answered HTTP 200 with a
+    login surface. Access is granted through an application and fee process run by the Research
+    Institute for Information Technology, not by issuing API credentials; no token format, scope
+    list or programmatic interface is published.
+  evidence: 'genkai-portal 200 (3,348 bytes), genkai-ood 200 (6,907 bytes), genkai-reserve 200 (7,475 bytes) — all login walls.'
+- name: oauth2
+  type: oauth2
+  surface: Elsevier Pure research portal (x-operator tenant — NOT the institution's contract)
+  endpoint: https://kyushu-u.elsevierpure.com/ws/api
+  description: >-
+    Kyushu University's Pure tenant serves a live OpenAPI at /ws/api/openapi.json. It is titled
+    "Pure API", version 5.36.2-1, contact pure-support@elsevier.com, with a relative server block
+    of /ws/api and 827 paths. That is Elsevier's contract running under the university's name, and
+    it is deliberately NOT saved into this repository. Its authentication scheme is Elsevier's to
+    document, not Kyushu's.
+  evidence: 'GET /ws/api/openapi.json -> HTTP 200, 360,304 bytes, info.title "Pure API", info.contact.email pure-support@elsevier.com.'

@@ -1,0 +1,30 @@
+{
+  "generated": "2026-09-01",
+  "method": "probed",
+  "source": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify",
+  "x-operator": "institution",
+  "note": "The endpoint runs on catalog.lib.kyushu-u.ac.jp, inside Kyushu University's own registrable domain, and the administrative contact is a kyushu-u.ac.jp address. Both the collection and the protocol implementation are the institution's — no vendor host is involved, so this is recorded as institution-operated rather than tenant.",
+  "request": {
+    "method": "GET",
+    "url": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify"
+  },
+  "response": {
+    "status": 200,
+    "content_type": "text/xml",
+    "parsed": {
+      "repositoryName": "Kyushu University Institutional Repository (QIR)",
+      "baseURL": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/",
+      "protocolVersion": "2.0",
+      "adminEmail": "qir@jimu.kyushu-u.ac.jp",
+      "earliestDatestamp": "2006-08-16T00:00:00Z",
+      "deletedRecord": "transient",
+      "granularity": "YYYY-MM-DDThh:mm:ssZ",
+      "oai-identifier": {
+        "scheme": "oai",
+        "repositoryIdentifier": "catalog.lib.kyushu-u.ac.jp",
+        "delimiter": ":",
+        "sampleIdentifier": "oai:catalog.lib.kyushu-u.ac.jp:2324/ID"
+      }
+    }
+  }
+}

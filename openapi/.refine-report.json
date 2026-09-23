@@ -1,0 +1,23 @@
+{
+  "provider": "kyushu",
+  "sources": [
+    "_original/kyushu-qir-oai-pmh-openapi.yml"
+  ],
+  "outputs": [
+    "kyushu-repository-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "kyushu-qir-oai-pmh-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kyushu-qir-oai-pmh-openapi.yml: multi-axis tagging (2 tags, 1 first tags, 2.00x duplication over 1 operations) \u2014 split on first tag, 1 operations narrowed",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/kyushu-qir-oai-pmh-openapi_2.yml: archived document superseded by a larger archived document",
+    "kyushu-repository-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

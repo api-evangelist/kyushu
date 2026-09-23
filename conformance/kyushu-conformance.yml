@@ -1,0 +1,150 @@
+generated: '2026-09-01'
+method: derived
+x-derived-from: live probes of each cited location, run 2026-09-01
+x-source-url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+regime: education
+source: >-
+  Every entry below cites a location that was fetched or queried live on 2026-09-01. Conformance is
+  read from the surface itself — an OAI-PMH Identify response, a SAML EntityDescriptor, a DataCite
+  provider record, a Crossref member record, a ROR record, the XML namespaces declared inside a
+  real harvested record — never from a prose claim on a web page. Standards in the Kin Score
+  `education` regime that Kyushu University does not implement are recorded as conforms: false
+  rather than omitted, so the absence is measurable rather than invisible.
+standards:
+- id: oai-pmh
+  name: Open Archives Initiative Protocol for Metadata Harvesting 2.0
+  conforms: true
+  x-operator: institution
+  evidence:
+    location: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+    detail: >-
+      ?verb=Identify returns protocolVersion 2.0, repositoryName "Kyushu University Institutional
+      Repository (QIR)", adminEmail qir@jimu.kyushu-u.ac.jp, earliestDatestamp
+      2006-08-16T00:00:00Z, deletedRecord transient, granularity YYYY-MM-DDThh:mm:ssZ, and an
+      oai-identifier description with repositoryIdentifier catalog.lib.kyushu-u.ac.jp.
+      ?verb=ListMetadataFormats returns jpcoar, jpcoar_2.0, junii2 and oai_dc. ?verb=ListSets
+      returns coal, dissertation, hydro, papers, rare, seals and qir. ?verb=ListIdentifiers,
+      ?verb=ListRecords and ?verb=GetRecord all returned real records. Five distinct OAI-PMH error
+      codes were reproduced against the live endpoint. All HTTP 200 with valid OAI-PMH XML.
+    caveat: >-
+      Unlike most Japanese national universities, this endpoint is NOT on NII JAIRO Cloud — it runs
+      on catalog.lib.kyushu-u.ac.jp, the university's own registrable domain, with a kyushu-u.ac.jp
+      administrative contact. The protocol implementation as well as the collection is the
+      institution's, which is why this is the rare university OAI-PMH surface graded
+      x-operator: institution rather than tenant.
+- id: shibboleth
+  name: Shibboleth Identity Provider (GakuNin federation)
+  conforms: true
+  x-operator: federation
+  evidence:
+    location: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+    detail: >-
+      An EntityDescriptor with entityID https://idp.kyushu-u.ac.jp/idp/shibboleth carries an
+      IDPSSODescriptor, OrganizationName "Kyushu University" / "九州大学", mdui:DisplayName in both
+      languages and shibmd:Scope kyushu-u.ac.jp. Registered in GakuNin, the Japanese academic
+      access-management federation operated by NII. Aggregate metadata fetched 2026-09-01,
+      HTTP 200, 5,653,150 bytes. Independently confirmed through the eduGAIN technical API, which
+      returns the same entity with mdrpi:RegistrationInfo registrationAuthority
+      https://www.gakunin.jp and registrationInstant 2011-02-18T07:27:49Z, plus
+      mdui:Keywords "category:organizationType:university".
+    caveat: >-
+      The IdP's own metadata URL, https://idp.kyushu-u.ac.jp/idp/shibboleth, returns HTTP 200 but a
+      115-byte Shibboleth error string rather than an EntityDescriptor. The federation aggregate is
+      the only working source for this entity.
+- id: saml
+  name: SAML 2.0 Web Browser SSO
+  conforms: true
+  x-operator: federation
+  evidence:
+    location: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+    detail: >-
+      The Kyushu IdP declares SingleSignOnService over urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+      (https://idp.kyushu-u.ac.jp/idp/profile/SAML2/POST/SSO) and HTTP-Redirect
+      (…/SAML2/Redirect/SSO), plus the legacy urn:mace:shibboleth:1.0:profiles:AuthnRequest binding,
+      and SingleLogoutService over HTTP-POST and HTTP-Redirect with the async-SLO extension. Two
+      further Kyushu University entities are registered as service providers —
+      https://reservation.shareaid.kyushu-u.ac.jp/shibboleth-sp ("ShareAid Portal for shared-use
+      research equipment and facilities in Kyushu University", host live HTTP 200) and
+      https://zk1.med.kyushu-u.ac.jp/shibboleth-sp (a REDCap instance) — each declaring
+      AssertionConsumerService over HTTP-POST, POST-SimpleSign, HTTP-Artifact and the SAML 1.0
+      browser-post and artifact profiles.
+- id: datacite
+  name: DataCite DOI registration
+  conforms: true
+  x-operator: registry
+  evidence:
+    location: https://api.datacite.org/providers/kyushuu
+    detail: >-
+      Kyushu University is DataCite provider `kyushuu` (symbol KYUSHUU), memberType
+      consortium_organization, region APAC, country JP, active, created 2023-02-28, with DOI prefix
+      10.48708, one repository (`kyushuu.kyushuu`, "Repository for Kyushu University") and a DOI
+      estimate of 79. It sits inside the `jalcco` consortium — the Japan Link Center, DataCite's
+      Japanese consortium lead. Independently, the DataCite kernel-4 namespace
+      https://schema.datacite.org/meta/kernel-4/ is declared and used inside every JPCOAR record
+      the OAI-PMH endpoint returns (datacite:description elements appear in the live GetRecord
+      sample), so the standard shows up in the contract's payload as well as in the registry.
+    caveat: >-
+      This is a membership fact about the institution. DataCite's own API is DataCite's and is
+      deliberately not saved as a Kyushu University contract.
+- id: crossref
+  name: Crossref DOI registration
+  conforms: true
+  x-operator: registry
+  evidence:
+    location: https://api.crossref.org/members/3044
+    detail: >-
+      Two Kyushu University units are Crossref members registering DOIs under their own prefixes,
+      verified against api.crossref.org on 2026-09-01 — member 3044 "Kyushu University"
+      (prefix 10.5109, 6,284 DOIs) and member 1036 "Faculty of Mathematics, Kyushu University"
+      (prefix 10.2206, 1,527 DOIs).
+    caveat: A membership, not a contract the institution publishes. Crossref's API is not saved here.
+- id: orcid
+  name: ORCID
+  conforms: false
+  x-operator: none
+  evidence:
+    location: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=GetRecord&metadataPrefix=jpcoar&identifier=oai:catalog.lib.kyushu-u.ac.jp:2324/411726
+    detail: >-
+      The JPCOAR schema supports ORCID via jpcoar:nameIdentifier with nameIdentifierScheme="ORCID",
+      but no nameIdentifier of any scheme appeared in the live records sampled from the `rare` and
+      `coal` sets, and no ORCID consortium or member registration for Kyushu University was
+      evidenced in this run. Recorded as false rather than omitted; the capability exists in the
+      schema and is not being exercised in the records observed.
+- id: scim
+  name: System for Cross-domain Identity Management
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: No SCIM endpoint, schema or provisioning documentation found on any kyushu-u.ac.jp host.
+- id: lti
+  name: IMS Learning Tools Interoperability
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: >-
+      No LTI tool registration, platform configuration or JWKS endpoint was found. The university's
+      learning environment is not exposed publicly and publishes no LTI configuration.
+- id: oneroster
+  name: IMS OneRoster
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: No OneRoster endpoint or CSV bundle found; rostering is a US K-12/HE convention not in use here.
+- id: ed-fi
+  name: Ed-Fi Data Standard
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: No Ed-Fi ODS/API found. Ed-Fi has no Japanese deployment footprint.
+- id: caliper
+  name: IMS Caliper Analytics
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: No Caliper event store or sensor endpoint found.
+- id: qti
+  name: IMS Question and Test Interoperability
+  conforms: false
+  x-operator: none
+  evidence:
+    detail: No QTI package endpoint or assessment interchange surface found.

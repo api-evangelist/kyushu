@@ -1,0 +1,37 @@
+{
+  "generated": "2026-09-01",
+  "method": "probed",
+  "source": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListMetadataFormats",
+  "x-operator": "institution",
+  "note": "Four formats are advertised on the wire, but the library's own documentation page states that anything other than the JPCOAR schema is still being adjusted and is not guaranteed to be emitted in the correct structure. The advertised surface is wider than the supported surface, and that gap is recorded here rather than smoothed over.",
+  "request": {
+    "method": "GET",
+    "url": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListMetadataFormats"
+  },
+  "response": {
+    "status": 200,
+    "content_type": "text/xml",
+    "metadata_formats": [
+      {
+        "metadataPrefix": "jpcoar",
+        "schema": "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd",
+        "metadataNamespace": "https://github.com/JPCOAR/schema/blob/master/1.0/"
+      },
+      {
+        "metadataPrefix": "jpcoar_2.0",
+        "schema": "https://github.com/JPCOAR/schema/blob/master/2.0/jpcoar_scm.xsd",
+        "metadataNamespace": "https://github.com/JPCOAR/schema/blob/master/2.0/"
+      },
+      {
+        "metadataPrefix": "junii2",
+        "schema": "http://irdb.nii.ac.jp/oai/junii2.xsd",
+        "metadataNamespace": "http://irdb.nii.ac.jp/oai"
+      },
+      {
+        "metadataPrefix": "oai_dc",
+        "schema": "http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+        "metadataNamespace": "http://www.openarchives.org/OAI/2.0/oai_dc/"
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+generated: '2026-09-01'
+method: probed
+x-source-url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+source:
+- https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListSets
+- https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListMetadataFormats
+- https://www.lib.kyushu-u.ac.jp/ja/metadata
+x-operator: institution
+note: >-
+  The controlled vocabularies a harvester actually has to know to use this endpoint, taken from the
+  endpoint's own ListSets and ListMetadataFormats responses on 2026-09-01 and cross-read against
+  the library's published metadata page. Nothing here is invented; where the wire and the
+  documentation disagree, both are recorded.
+vocabularies:
+- name: setSpec
+  description: Collection selector for the `set` parameter.
+  authority: Kyushu University Library
+  terms:
+  - term: coal
+    label_ja: 炭鉱画像
+    label_en: Coal mining images
+    license: CC0 1.0
+  - term: dissertation
+    label_ja: 学位論文
+    label_en: Doctoral dissertations
+    license: CC0 1.0
+  - term: hydro
+    label_ja: 水素材料DB
+    label_en: Hydrogen materials database
+    license: CC0 1.0
+    note: Present in the live ListSets response; not listed on the library's documentation page.
+  - term: papers
+    label_ja: 九州大学学術情報リポジトリ (QIR)
+    label_en: QIR repository papers
+    license: CC0 1.0, except abstracts which carry no licence grant
+    note: >-
+      Advertised by ListSets, but the library's documentation states explicitly that the `papers`
+      set is not served over OAI-PMH. Documentation and deployment disagree.
+  - term: rare
+    label_ja: 貴重資料
+    label_en: Rare materials digital archive
+    license: CC0 1.0
+  - term: seals
+    label_ja: 蔵書印画像
+    label_en: Ownership seal images
+    license: CC0 1.0
+  - term: qir
+    label_en: QIR
+    note: Present in the live ListSets response; not listed on the library's documentation page.
+- name: metadataPrefix
+  description: Metadata format selector.
+  authority: JPCOAR / NII / OAI
+  terms:
+  - term: jpcoar
+    schema: https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd
+    authority: Japan Consortium for Open Access Repositories (JPCOAR)
+    note: The only prefix the library states is fully supported.
+  - term: jpcoar_2.0
+    schema: https://github.com/JPCOAR/schema/blob/master/2.0/jpcoar_scm.xsd
+    authority: JPCOAR
+  - term: junii2
+    schema: http://irdb.nii.ac.jp/oai/junii2.xsd
+    authority: National Institute of Informatics (NII)
+  - term: oai_dc
+    schema: http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+    authority: Open Archives Initiative / Dublin Core
+- name: identifier
+  description: OAI identifier grammar for this repository.
+  authority: Kyushu University Library
+  terms:
+  - term: 'oai:catalog.lib.kyushu-u.ac.jp:2324/{metadataId}'
+    note: >-
+      2324 is Kyushu University's Handle prefix; every record identifier resolves through
+      hdl.handle.net under it. The repositoryIdentifier declared in the Identify response is
+      catalog.lib.kyushu-u.ac.jp.
+- name: namespaces
+  description: XML namespaces declared inside a live JPCOAR record — what the payload actually imports.
+  authority: JPCOAR schema
+  terms:
+  - term: https://schema.datacite.org/meta/kernel-4/
+    note: DataCite kernel 4 — used for datacite:description elements.
+  - term: http://namespace.openaire.eu/schema/oaire/
+    note: OpenAIRE guidelines vocabulary.
+  - term: http://purl.org/dc/elements/1.1/
+  - term: http://purl.org/dc/terms/
+  - term: http://www.rioxx.net/schema/v2.0/rioxxterms/
+  - term: http://ndl.go.jp/dcndl/terms/
+    note: National Diet Library Dublin Core terms.

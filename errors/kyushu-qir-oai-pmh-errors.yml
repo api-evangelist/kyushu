@@ -1,0 +1,57 @@
+generated: '2026-09-01'
+method: derived
+x-derived-from: live probe — deliberately malformed requests sent to the QIR OAI-PMH endpoint 2026-09-01
+x-source-url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+source: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
+x-operator: institution
+note: >-
+  Kyushu University Library publishes no error reference for the OAI-PMH interface. Every code
+  below was produced by sending a deliberately malformed request on 2026-09-01 and reading what
+  came back — none of it is quoted from documentation and none of it is assumed from the OAI-PMH
+  specification. The five codes listed are the five that were actually observed; the remaining
+  OAI-PMH 2.0 codes (badResumptionToken, noMetadataFormats, noSetHierarchy) were not triggered and
+  are deliberately not claimed.
+transport:
+  status_on_error: 200
+  detail: >-
+    Every protocol error came back with HTTP 200 and an empty `<error code="…"/>` element inside a
+    normal OAI-PMH envelope. A harvester that branches on HTTP status alone reads every one of
+    these failures as a success. The error element carries a code attribute and, at this endpoint,
+    no human-readable message text at all — the element is self-closing.
+  correlation_header: none observed
+errors:
+- code: badVerb
+  http_status: 200
+  trigger: The `verb` parameter names something that is not an OAI-PMH verb.
+  request: 'GET ?verb=Bogus'
+  response: '<error code="badVerb"/>'
+- code: badArgument
+  http_status: 200
+  trigger: >-
+    A required parameter is missing, or a parameter is supplied that is illegal for the given verb.
+    Observed twice — `verb=ListRecords` with no metadataPrefix, and `verb=Identify&metadataPrefix=jpcoar`,
+    where Identify takes no arguments.
+  request: 'GET ?verb=ListRecords   /   GET ?verb=Identify&metadataPrefix=jpcoar'
+  response: '<error code="badArgument"/>'
+- code: idDoesNotExist
+  http_status: 200
+  trigger: GetRecord for a well-formed OAI identifier that this repository does not hold.
+  request: 'GET ?verb=GetRecord&metadataPrefix=jpcoar&identifier=oai:catalog.lib.kyushu-u.ac.jp:2324/999999999'
+  response: '<error code="idDoesNotExist"/>'
+- code: cannotDisseminateFormat
+  http_status: 200
+  trigger: metadataPrefix names a format the repository does not serve.
+  request: 'GET ?verb=ListRecords&metadataPrefix=marc21&set=rare'
+  response: '<error code="cannotDisseminateFormat"/>'
+- code: noRecordsMatch
+  http_status: 200
+  trigger: A from/until window that selects nothing. Not a fault — a legitimate empty result.
+  request: 'GET ?verb=ListRecords&metadataPrefix=jpcoar&from=1990-01-01&until=1990-01-02'
+  response: '<error code="noRecordsMatch"/>'
+observed_reliability:
+  detail: >-
+    The endpoint intermittently dropped connections during this run — several requests returned
+    curl exit 28/52 (no response) and succeeded unchanged on retry within seconds. Harvesters
+    should retry rather than treat a dropped connection as a dead endpoint. Recorded because it is
+    a measured operational characteristic, not a claim about uptime.
+  observed: '2026-09-01'

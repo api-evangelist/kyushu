@@ -1,0 +1,146 @@
+openapi: 3.2.0
+info:
+  title: Kyushu University Institutional (QIR) OAI-PMH Repository API
+  version: '2.0'
+  x-generated: '2026-09-01'
+  x-method: derived
+  x-source:
+  - https://www.lib.kyushu-u.ac.jp/ja/metadata
+  - https://www.lib.kyushu-u.ac.jp/en/metadata
+  - https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=Identify
+  x-operator: institution
+  x-derived-from: Hand-written from the Kyushu University Library's own published parameter documentation at lib.kyushu-u.ac.jp/ja/metadata, then corrected against live responses from the endpoint itself on 2026-09-01 (Identify, ListMetadataFormats, ListSets, ListIdentifiers, GetRecord, ListRecords and a deliberate badVerb). Kyushu University does not publish an OpenAPI description for this interface; this document is API Evangelist's, not theirs, and is marked derived so it is never credited to the institution as something they published.
+  description: OAI-PMH 2.0 metadata harvesting interface for the digital collections of Kyushu University Library, including the Kyushu University Institutional Repository (QIR).
+  contact:
+    name: Kyushu University Institutional Repository (QIR) administration
+    email: qir@jimu.kyushu-u.ac.jp
+    url: https://www.lib.kyushu-u.ac.jp/ja/metadata
+  license:
+    name: CC0 1.0 Universal (metadata; QIR abstracts excluded)
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+- url: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh
+  description: Production OAI-PMH base URL, verified live 2026-09-01
+tags:
+- name: Repository
+  description: Verbs describing the repository itself — its identity, its metadata formats and its sets.
+paths:
+  /:
+    get:
+      operationId: oaiPmhRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: Single OAI-PMH entry point. The `verb` parameter selects the operation; the remaining parameters are valid only for particular verbs, exactly as OAI-PMH 2.0 specifies. A request carrying `resumptionToken` MUST carry no other parameter except `verb`. The library caps a single ListRecords / ListIdentifiers response at 500 records and returns a resumptionToken for the remainder.
+      tags:
+      - Repository
+      parameters:
+      - name: verb
+        in: query
+        required: true
+        description: The OAI-PMH verb to invoke.
+        schema:
+          type: string
+          enum:
+          - Identify
+          - ListMetadataFormats
+          - ListSets
+          - ListIdentifiers
+          - ListRecords
+          - GetRecord
+      - name: metadataPrefix
+        in: query
+        required: false
+        description: Metadata format to return. Required for GetRecord, ListRecords and ListIdentifiers. The library documents `jpcoar` as the supported value and states that formats other than the JPCOAR schema are still being adjusted and are not guaranteed to be well-formed for their structure; ListMetadataFormats nevertheless advertises four.
+        schema:
+          type: string
+          enum:
+          - jpcoar
+          - jpcoar_2.0
+          - junii2
+          - oai_dc
+          default: jpcoar
+      - name: identifier
+        in: query
+        required: false
+        description: OAI identifier of a single record, required for GetRecord. Form `oai:catalog.lib.kyushu-u.ac.jp:2324/{metadataId}`, where 2324 is the university's Handle prefix.
+        schema:
+          type: string
+          pattern: ^oai:catalog\.lib\.kyushu-u\.ac\.jp:2324/[0-9]+$
+          examples:
+          - oai:catalog.lib.kyushu-u.ac.jp:2324/411726
+      - name: set
+        in: query
+        required: false
+        description: Collection to harvest. Live setSpec values on 2026-09-01 were coal, dissertation, hydro, papers, rare, seals and qir. The library's documentation notes that the repository set `papers` is not served over OAI-PMH.
+        schema:
+          type: string
+          enum:
+          - coal
+          - dissertation
+          - hydro
+          - papers
+          - rare
+          - seals
+          - qir
+      - name: from
+        in: query
+        required: false
+        description: Lower datestamp bound, `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`.
+        schema:
+          type: string
+          examples:
+          - '2020-03-01'
+      - name: until
+        in: query
+        required: false
+        description: Upper datestamp bound, `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`.
+        schema:
+          type: string
+          examples:
+          - '2020-03-31'
+      - name: resumptionToken
+        in: query
+        required: false
+        description: Continuation token returned when a list response is truncated at the 500-record ceiling. Must be sent alone, with no other parameter but `verb`.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: An OAI-PMH 2.0 response envelope. Note that protocol-level errors are also returned with HTTP 200 and an `<error>` element carrying an OAI-PMH error code — the HTTP status is not a reliable success signal for this interface.
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/OAIPMHResponse'
+components:
+  schemas:
+    OAIPMHError:
+      type: object
+      description: OAI-PMH protocol error, returned inside a 200 response.
+      properties:
+        code:
+          type: string
+          enum:
+          - badArgument
+          - badResumptionToken
+          - badVerb
+          - cannotDisseminateFormat
+          - idDoesNotExist
+          - noRecordsMatch
+          - noMetadataFormats
+          - noSetHierarchy
+        message:
+          type: string
+    OAIPMHResponse:
+      type: object
+      description: OAI-PMH 2.0 response envelope, namespace http://www.openarchives.org/OAI/2.0/, validated against http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd. Described here as an object for OpenAPI's benefit; the wire format is XML.
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIPMHError'
+      required:
+      - responseDate
+      - request

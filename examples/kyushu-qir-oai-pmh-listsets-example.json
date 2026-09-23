@@ -1,0 +1,24 @@
+{
+  "generated": "2026-09-01",
+  "method": "probed",
+  "source": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListSets",
+  "x-operator": "institution",
+  "note": "Seven sets are served live. The library's documentation page lists six of them and adds that the repository set `papers` is not available over OAI-PMH; ListSets nevertheless advertises `papers` and an additional `qir` set that the documentation does not mention. Documentation and deployment disagree, and both readings are recorded.",
+  "request": {
+    "method": "GET",
+    "url": "https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/?verb=ListSets"
+  },
+  "response": {
+    "status": 200,
+    "content_type": "text/xml",
+    "sets": [
+      { "setSpec": "coal",         "setName": "coal",         "collection": "Coal mining images (炭鉱画像)" },
+      { "setSpec": "dissertation", "setName": "dissertation", "collection": "Doctoral dissertations (学位論文)" },
+      { "setSpec": "hydro",        "setName": "hydro",        "collection": "Hydrogen materials database (水素材料DB)" },
+      { "setSpec": "papers",       "setName": "papers",       "collection": "QIR repository papers — documented as NOT served over OAI-PMH" },
+      { "setSpec": "rare",         "setName": "rare",         "collection": "Rare materials digital archive (貴重資料)" },
+      { "setSpec": "seals",        "setName": "seals",        "collection": "Ownership seal images (蔵書印画像)" },
+      { "setSpec": "qir",          "setName": "qir",          "collection": "QIR — present on the wire, absent from the documentation" }
+    ]
+  }
+}
