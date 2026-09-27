@@ -218,6 +218,7 @@ apis:
   - type: VendorProfile
     url: https://kyushu-u.elsevierpure.com/
 - aid: kyushu:genkai-research-computing
+  x-published: false
   name: Genkai Supercomputer System (Research Institute for Information Technology)
   x-operator: institution
   description: 'Kyushu University''s research computing service, operated by the Research Institute for
