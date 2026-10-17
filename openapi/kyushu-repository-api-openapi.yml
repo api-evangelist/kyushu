@@ -112,6 +112,21 @@ paths:
                 $ref: '#/components/schemas/OAIPMHResponse'
 components:
   schemas:
+    OAIPMHResponse:
+      type: object
+      description: OAI-PMH 2.0 response envelope, namespace http://www.openarchives.org/OAI/2.0/, validated against http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd. Described here as an object for OpenAPI's benefit; the wire format is XML.
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIPMHError'
+      required:
+      - responseDate
+      - request
     OAIPMHError:
       type: object
       description: OAI-PMH protocol error, returned inside a 200 response.
@@ -129,18 +144,3 @@ components:
           - noSetHierarchy
         message:
           type: string
-    OAIPMHResponse:
-      type: object
-      description: OAI-PMH 2.0 response envelope, namespace http://www.openarchives.org/OAI/2.0/, validated against http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd. Described here as an object for OpenAPI's benefit; the wire format is XML.
-      properties:
-        responseDate:
-          type: string
-          format: date-time
-        request:
-          type: string
-          format: uri
-        error:
-          $ref: '#/components/schemas/OAIPMHError'
-      required:
-      - responseDate
-      - request
