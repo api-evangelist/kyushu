@@ -1,4 +1,4 @@
-# Kyushu University (kyushu)
+# Kyushu University
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,57 +64,130 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kyushu University (九州大学) is a national research university in Fukuoka, Japan, ranked #167 in the QS World University Rankings 2025. This repository catalogs the institution's public developer/API footprint as an [APIs.json](https://apisjson.org) provider profile. The verifiable public surface is concentrated in the Kyushu University Library, which exposes scholarly metadata from its institutional repository (QIR) over a live OAI-PMH 2.0 interface and via bulk TSV downloads. There is no central, institution-wide developer portal.
+Kyushu University (九州大学) is a Japanese national research university in Fukuoka, one of the seven former Imperial Universities and a Designated National University, ranked #171 in the QS World University Rankings 2027. Its programmable footprint is small and concentrated in scholarly infrastructure rather than in a developer platform, and this profile says so rather than padding it. Exactly one unambiguously institution-operated API was found and exercised end to end: the OAI-PMH 2.0 metadata interface for the Kyushu University Institutional Repository and the library's digital collections, at catalog.lib.kyushu-u.ac.jp. That endpoint is unusual for this cohort — most Japanese university repositories are tenants on NII's JAIRO Cloud, while Kyushu runs the protocol implementation itself on its own registrable domain, with a kyushu-u.ac.jp administrative contact, four metadata formats and seven collection sets. Everything else is a relationship rather than a contract: the university operates its own SAML 2.0 Shibboleth Identity Provider registered in the GakuNin national federation since 2011 and exported to eduGAIN; it is a DataCite consortium organization under the Japan Link Center and a Crossref member through two units; its research portal is an Elsevier Pure tenant whose live OpenAPI is Elsevier's contract, not Kyushu's, and is deliberately not saved here. There is no central developer portal, no API key issuance, no open-data platform, no llms.txt, no MCP server and no OpenAPI published anywhere on kyushu-u.ac.jp. The public syllabus and the Genkai supercomputer portals are HTML and login walls, not APIs.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/kyushu/refs/heads/main/apis.yml
-- Run it with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=kyushu-api-evangelist&utm_content=repo
+**Areas:** University · Higher Education · Education · Research · Japan · National University · Public Research University · Institutional Repository · Research Data · Identity Federation · Library · Course Catalog
 
-## Type
+## Kyushu University on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Kyushu University is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kyushu/](https://apis.io/providers/kyushu/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-Education, Higher Education, University, Research, Library, Institutional Repository, OAI-PMH, Open Access, Japan
+- [QIR / Kyushu University Collections Bulk Metadata (TSV via Handle)](https://apis.io/apis/kyushu/qir-bulk-tsv/) — Quarterly full-metadata TSV exports for the Kyushu University Library digital collections, distributed through the Handle system under the university's own…
+- [GakuNin Shibboleth Identity Provider](https://apis.io/apis/kyushu/gakunin-shibboleth-idp/) — Kyushu University's own SAML 2.0 Identity Provider, registered in GakuNin — the Japanese academic access-management federation operated by NII — and…
+- [DataCite DOI Registration Membership](https://apis.io/apis/kyushu/datacite-membership/) — Kyushu University is a DataCite consortium organization — provider id `kyushuu`, symbol KYUSHUU, region APAC, country JP, active since 2023-02-28 — inside…
+- [Crossref DOI Registration Membership](https://apis.io/apis/kyushu/crossref-membership/) — Two Kyushu University units are Crossref members registering DOIs under their own prefixes, verified against api.crossref.org on 2026-09-01 — member 3044…
+- [ROR Organization Record](https://apis.io/apis/kyushu/ror-registration/) — Kyushu University's Research Organization Registry record, ROR ID 00p4k0j84, carrying the English, romanized (Kyūshū Daigaku) and Japanese (九州大学) names. The…
+- [Kyushu University Pure Research Portal (Elsevier tenant)](https://apis.io/apis/kyushu/pure-research-portal/) — Kyushu University's research information portal, an Elsevier Pure tenant at kyushu-u.elsevierpure.com. The researchers, publications, organizational units…
+- [Genkai Supercomputer System (Research Institute for Information Technology)](https://apis.io/apis/kyushu/genkai-research-computing/) — Kyushu University's research computing service, operated by the Research Institute for Information Technology (RIIT) around the Genkai supercomputer. Three…
+- [Kyushu University Repository API](https://apis.io/apis/kyushu/kyushu-repository-api/) — Verbs describing the repository itself — its identity, its metadata formats and its sets.
 
-## APIs
+### Published properties
 
-- **Kyushu University Institutional Repository (QIR) OAI-PMH** — Live OAI-PMH 2.0 metadata harvesting interface for QIR, run by the Kyushu University Library. Returns JPCOAR-schema metadata; supports Identify, GetRecord and ListRecords with date filtering and resumptionToken pagination.
-  - Docs: https://www.lib.kyushu-u.ac.jp/ja/metadata
-  - Base URL: https://catalog.lib.kyushu-u.ac.jp/mmd/mmd_api/oai-pmh/
-- **QIR / Kyushu University Collections Bulk Metadata (TSV via Handle)** — Quarterly full-metadata TSV exports for the library's digital collections (repository, rare materials, seal images, coal images), distributed through the Handle system.
-  - Docs: https://www.lib.kyushu-u.ac.jp/ja/metadata
-  - Download: https://hdl.handle.net/2324/6625737
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Plans / Rate Limits / FinOps
+#### JSON-LD (1)
 
-- Plans & Pricing: [plans/kyushu-plans-pricing.yml](plans/kyushu-plans-pricing.yml)
-- Rate Limits: [rate-limits/kyushu-rate-limits.yml](rate-limits/kyushu-rate-limits.yml)
-- FinOps: [finops/kyushu-finops.yml](finops/kyushu-finops.yml)
+Linked-data contexts for the provider's vocabulary.
 
-## Timestamps
+- [Kyushu Context](https://apis.io/jsonld/kyushu/kyushu-context/)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+#### Examples (4)
 
-## Common Properties
+Example requests and responses.
 
-- Website: https://www.kyushu-u.ac.jp/en/
-- Developer Portal (library metadata): https://www.lib.kyushu-u.ac.jp/ja/metadata
-- GitHub (RIIT, institute-level): https://github.com/RIIT-KyushuUniv
-- LinkedIn: https://www.linkedin.com/school/kyushu-university/
-- Review: [review.yml](review.yml)
+- [Kyushu Qir Oai Pmh Getrecord Example](https://apis.io/examples/kyushu/kyushu-qir-oai-pmh-getrecord-example/)
+- [Kyushu Qir Oai Pmh Identify Example](https://apis.io/examples/kyushu/kyushu-qir-oai-pmh-identify-example/)
+- [Kyushu Qir Oai Pmh Listmetadataformats Example](https://apis.io/examples/kyushu/kyushu-qir-oai-pmh-listmetadataformats-example/)
+- [Kyushu Qir Oai Pmh Listsets Example](https://apis.io/examples/kyushu/kyushu-qir-oai-pmh-listsets-example/)
 
-## Notes
+#### Security (2)
 
-- Verification discipline: only endpoints confirmed live are cataloged as APIs. The QIR OAI-PMH endpoint returned a valid OAI-PMH 2.0 Identify response (repositoryName "Kyushu University Institutional Repository (QIR)", JPCOAR schema, adminEmail qir@jimu.kyushu-u.ac.jp).
-- A legacy DSpace OAI endpoint (`qir.kyushu-u.ac.jp/dspace-oai`) no longer resolves; QIR has migrated to the WEKO-based `catalog.lib.kyushu-u.ac.jp` platform.
-- The Elsevier Pure research portal and the Academic Staff researcher database are public for browsing but document no open/public API.
-- `RIIT-KyushuUniv` is an institute-level GitHub org (Research Institute for Information Technology), not a central university account; no official university-wide GitHub org was confirmed.
-- The LinkedIn school page returns an anti-bot 999 status to automated fetches; the URL uses the standard school slug.
+Authentication, trust centre, and vulnerability disclosure.
 
-## Maintainers
+- [Kyushu Authentication](https://apis.io/security/kyushu/kyushu-authentication/)
+- [Kyushu Domain Security](https://apis.io/security/kyushu/kyushu-domain-security/)
 
-- Kin Lane — kin@apievangelist.com
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kyushu Plans Pricing](https://apis.io/plans/kyushu/kyushu-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kyushu Rate Limits](https://apis.io/rate-limits/kyushu/kyushu-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Kyushu Finops](https://apis.io/finops/kyushu/kyushu-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.kyushu-u.ac.jp/en/)
+- [Documentation](https://www.lib.kyushu-u.ac.jp/en/metadata)
+- [Support](https://www.kyushu-u.ac.jp/en/contact/)
+- [Blog](https://www.kyushu-u.ac.jp/en/news/)
+- [Terms of service](https://www.kyushu-u.ac.jp/en/website/sitepolicy)
+- [Privacy policy](https://www.kyushu-u.ac.jp/en/website/privacypolicy)
+- [GitHub](https://github.com/RIIT-KyushuUniv)
+
+## API Evangelist rating
+
+**Kin Score 27.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 22.3 |
+| Contract governance | 19.7 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 26.3 |
+
+**Agent readiness 20.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kyushu/](https://apis.io/providers/kyushu/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kyushu University: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kyushu/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
